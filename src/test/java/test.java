@@ -30,5 +30,9 @@ public class test {
             MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
             myBatisGenerator.generate(null);
         }
+
+
+
+
     }
 
