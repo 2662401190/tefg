@@ -1,5 +1,9 @@
 package com.tefg.common;
 
+import com.google.common.collect.Sets;
+
+import java.util.Set;
+
 /**
  * @author 贺威
  * TODO 常量类
@@ -16,6 +20,14 @@ public class Const {
     //用户名
     public static  final  String USWENAME = "username";
 
+
+
+    public  interface ProductListOrderBy{
+        Set<String> PRI_ASC_DESC= Sets.newHashSet("price_desc","price_asc");
+    }
+
+
+
     //角色管理
     public  interface  Role{
         /**
@@ -26,7 +38,24 @@ public class Const {
          * 管理员
          */
         int ROLE_ADMIN = 1;
+    }
 
+    public enum ProductStatusEnum {
+        ON_SALE(1,"在线");
+        private  String value;
+        private int code;
 
+        ProductStatusEnum(int code,String value ) {
+            this.value=value;
+            this.code=code;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public int getCode() {
+            return code;
+        }
     }
 }

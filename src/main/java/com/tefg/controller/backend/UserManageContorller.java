@@ -35,6 +35,8 @@ public class UserManageContorller {
     @ResponseBody
     public ServerResponse<User>  Login(String username, String password, HttpSession session){
         ServerResponse<User> response=iUserService.login(username, password);
+
+        System.out.println("..............."+response.toString());
         if(response.isSuccess()){
             User user=response.getData();
             //说明登录是管理员

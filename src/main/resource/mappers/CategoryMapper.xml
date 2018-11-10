@@ -116,4 +116,14 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--以下自己写的-->
+  <!--查询子节点的category信息-->
+  <select id="selectCategoryChildrenByParenId" resultMap="BaseResultMap" parameterType="int">
+    select
+    <include refid="Base_Column_List"/>
+    from tefg_category
+    where parent_id=#{parent_id}
+
+  </select>
 </mapper>
