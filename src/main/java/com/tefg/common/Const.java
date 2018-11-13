@@ -20,8 +20,18 @@ public class Const {
     //用户名
     public static  final  String USWENAME = "username";
 
+    public interface Cart{
+        //购物车选中状态
+        int CHECKED=1;
+        //未选中
+        int UN_CHENCKED=0;
 
+        String LIMIT_NUM_FAIL = "LIMIT_NUM_FAIL";
+        String LIMIT_NUM_SUCCESS ="LIMIT_NUM_SUCCESS";
 
+    }
+
+    //商品排序
     public  interface ProductListOrderBy{
         Set<String> PRI_ASC_DESC= Sets.newHashSet("price_desc","price_asc");
     }

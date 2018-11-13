@@ -204,7 +204,8 @@ public class ProductServiceIpm implements IProductService {
     public ServerResponse<PageInfo> searchPaoduct(String productName, Integer productId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         if (StringUtils.isNotBlank(productName)) {
-            productName=new StringBuffer().append("% ").append(productName).append(" %").toString();
+            productName=new StringBuffer().append("%").append(productName).append("%").toString();
+            System.out.println(".............."+productName);
         }
         List<Product> productList = productMapper.selectByNameAndProduct(productName, productId);
         List<ProductListVo> productListVos=new ArrayList<>();

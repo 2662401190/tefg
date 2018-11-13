@@ -132,6 +132,7 @@
 
                 if (result.status == 0) {
                     alert("注册成功");
+                    location.href="user-login.jsp";
                 }else {
                     alert("注册失败");
                     return false;

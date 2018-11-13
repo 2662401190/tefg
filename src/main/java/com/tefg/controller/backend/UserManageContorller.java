@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -33,7 +34,7 @@ public class UserManageContorller {
      */
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<User>  Login(String username, String password, HttpSession session){
+    public ServerResponse<User>  Login(@RequestParam(value = "username") String username,@RequestParam(value = "password") String password, HttpSession session){
         ServerResponse<User> response=iUserService.login(username, password);
 
         System.out.println("..............."+response.toString());

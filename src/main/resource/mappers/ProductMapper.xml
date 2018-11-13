@@ -191,8 +191,8 @@
     <include refid="Base_Column_List"/>
     from tefg_product
     <where>
-      <if test="name !=null" >
-         and nane like #{name}
+      <if test="productName !=null" >
+         and name like #{productName}
       </if>
       <if test="id !=null">
           and id=#{id}
