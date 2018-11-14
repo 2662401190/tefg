@@ -116,4 +116,61 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <!--一下自己定义-->
+  <!--根据userId 和ProductID查询购物车-->
+  <select id="selectCartByUserIdWithProductId" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from tefg_cart
+    where user_id=#{userId}
+    and  product_id=#{productId}
+  </select>
+
+  <select id="selectCartByUserId" resultMap="BaseResultMap" parameterType="int">
+    select
+    <include refid="Base_Column_List"/>
+    from tefg_cart
+    where  user_id=#{id}
+
+  </select>
+
+  <!-- 判断是否勾选 -->
+  <select id="selectCartProductCheckedStatusByUserId" resultType="int" parameterType="int">
+    select
+    count(1)
+    from tefg_cart
+    where  checked=0
+    and user_id=#{userId}
+  </select>
+
+  <delete id="deleteByUserIdProductIds"  parameterType="map">
+
+    delete from tefg_cart where user_id=#{userId}
+    <if test="productIds !=null">
+      and  product_id in
+       <foreach collection="productIds" item="item" index="index" open="(" separator="," close=")">
+          #{item}
+       </foreach>
+    </if>
+  </delete>
+
+  <update id="checkedOrUncheckedAProduct" parameterType="map">
+
+    update tefg_cart
+    set  checked=#{checked},update_time=now()
+    where user_id=#{userId}
+
+    <if test="productId !=null">
+        and product_id=#{productId}
+    </if>
+
+  </update>
+
+<!--获取购物车商品的数量-->
+  <select id="selectCartProuctCount" resultType="int" parameterType="int">
+    select  IFNULL(sum(quantity),0) as count  from   tefg_cart where user_id=#{userId}
+  </select>
+
 </mapper>

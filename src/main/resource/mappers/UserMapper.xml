@@ -165,7 +165,7 @@
   </select>
 
   <!--登录-->
-  <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+  <select id="selectLogin" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from tefg_user

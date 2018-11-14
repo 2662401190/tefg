@@ -17,6 +17,7 @@ public class PropertiesUtil {
 
     private static Properties props;
 
+
     static {
         String fileName = "tefg.properties";
         props = new Properties();

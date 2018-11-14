@@ -176,4 +176,47 @@
       update_time =now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--查询商品结合-->
+  <select id="products_list" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from  tefg_product
+    order  by  id asc
+
+  </select>
+
+  <!--搜索查询-->
+  <select id="selectByNameAndProduct" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from tefg_product
+    <where>
+      <if test="productName !=null" >
+         and name like #{productName}
+      </if>
+      <if test="id !=null">
+          and id=#{id}
+      </if>
+        
+    </where>
+  </select>
+
+
+  <select id="selectByNameAndCategoryIds" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from  tefg_product
+    where status=1
+    <if test="productName!=null">
+      and  name like #{productName}
+    </if>
+    <if test="productIdList!=null">
+        and category_id in
+      <foreach item="item" index="index" open="(" separator="," close=")" collection="productIdList">
+          #{item}
+      </foreach>
+    </if>
+
+  </select>
+
 </mapper>

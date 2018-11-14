@@ -17,7 +17,7 @@ import java.util.UUID;
  * @author 贺威
  * @create 2018-10-31 18:05
  */
-@Service("com.tefg.service.IUserService")
+@Service("iUserService")
 public class UserSericeImp implements IUserService {
 
     @Autowired
@@ -32,7 +32,7 @@ public class UserSericeImp implements IUserService {
     @Override
     public ServerResponse<User> login(String userName, String passWord) {
         // 判断用户存不存在
-        System.out.println("User"+userName+"..."+passWord);
+
         int resultConut=userMapper.checkUsername(userName);
         if(resultConut==0){
             return  ServerResponse.createByErrorMessage("用户名不存在");
@@ -44,9 +44,8 @@ public class UserSericeImp implements IUserService {
         if (user==null){
             return  ServerResponse.createByErrorMessage("密码错误");
         }
-
         user.setPassword(StringUtils.EMPTY);
-        return ServerResponse.createBySuccessMessage("登录成功");
+        return ServerResponse.createBySuccess("登录成功", user);
     }
 
 
@@ -253,6 +252,23 @@ public class UserSericeImp implements IUserService {
         user.setPassword(StringUtils.EMPTY);
 
         return ServerResponse.createBySuccess(user);
+    }
+
+
+
+    //  后台
+
+    /**
+     * 判断是否是管理员
+     * @param user
+     * @return
+     */
+    @Override
+    public  ServerResponse checkAdminRole(User user){
+        if (user != null && user.getRele().intValue() == Const.Role.ROLE_ADMIN) {
+            return  ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
     }
 
 

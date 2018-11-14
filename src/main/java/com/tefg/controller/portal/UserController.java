@@ -34,7 +34,7 @@ public class UserController {
     @ResponseBody
     public ServerResponse<User> login(@RequestParam String userName, @RequestParam String passWord, HttpSession session) {
 
-        System.out.println("进入登录");
+
         ServerResponse<User> response=iUserService.login(userName, passWord);
 
         if (response.isSuccess()){
@@ -70,14 +70,14 @@ public class UserController {
     /**
      * 判断  邮箱和用户名是否存在
      * @param var
-     * @param types
+     * @param type
      * @return
      */
     @RequestMapping(value = "check_Valid.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String>  checkValid(String  var,String types){
+    public ServerResponse<String>  checkValid(@RequestParam(value = "var") String  var,@RequestParam(value = "type") String type){
 
-        return iUserService.checkValid(var,types );
+        return iUserService.checkValid(var,type);
     }
 
     /**
