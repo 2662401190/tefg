@@ -20,6 +20,9 @@ public class Const {
     //用户名
     public static  final  String USWENAME = "username";
 
+    //后台用户名
+    public static final String ManagerUser="manageruser";
+
     public interface Cart{
         //购物车选中状态
         int CHECKED=1;
