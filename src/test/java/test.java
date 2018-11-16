@@ -31,7 +31,9 @@ public class test {
             myBatisGenerator.generate(null);
         }
 
+        public void sd(){
 
+        }
 
 
     }
