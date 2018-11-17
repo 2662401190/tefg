@@ -2,6 +2,7 @@ package com.tefg.service.Imp;
 
 import com.tefg.Utril.MD5Util;
 import com.tefg.common.Const;
+import com.tefg.common.Page;
 import com.tefg.common.ServerResponse;
 import com.tefg.common.TokenCache;
 import com.tefg.dao.UserMapper;
@@ -11,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -271,6 +274,22 @@ public class UserSericeImp implements IUserService {
         return ServerResponse.createByError();
     }
 
+    /**
+     * 用户分页
+     * @param parammap
+     * @return
+     */
+    @Override
+    public Page queryPage(Map parammap) {
+        Page page=new Page((Integer) parammap.get("pageno"),(Integer) parammap.get("pagesize"));
+        Integer startIndex=page.getstartIndex();
+        parammap.put("startIndex",startIndex);
+        List datas=userMapper.queryPageList(parammap);
+        page.setDatas(datas);
+        Integer count=userMapper.queryCount(parammap);
+        page.setTotalsize(count);
+        return page;
+    }
 
 
 }

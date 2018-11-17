@@ -1,7 +1,10 @@
 package com.tefg.service;
 
+import com.tefg.common.Page;
 import com.tefg.common.ServerResponse;
 import com.tefg.pojo.User;
+
+import java.util.Map;
 
 /**
  * @author 贺威
@@ -87,4 +90,10 @@ public interface IUserService {
      * @return
      */
     ServerResponse checkAdminRole(User user);
+
+
+    /**
+     * 用户分页
+     */
+    Page queryPage(Map parammap);
 }

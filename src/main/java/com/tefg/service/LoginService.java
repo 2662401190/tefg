@@ -13,4 +13,6 @@ import java.util.Map;
  **/
 public interface LoginService {
     User queryUserLogin(Map<String,Object> paramMap);
+
+    int checkUsername(String username);
 }
