@@ -3,6 +3,9 @@ package com.tefg.dao;
 import com.tefg.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -74,4 +77,24 @@ public interface UserMapper {
      */
      int checkEmailByUserId(@Param("email") String email,@Param("id") Integer userId);
 
+    /**
+     * 用户登录
+     * @param paramMap
+     * @return
+     */
+    User queryUserLogin(Map<String, Object> paramMap);
+
+    /**
+     *查询用户分页
+     * @param parammap
+     * @return
+     */
+    List queryPageList(Map parammap);
+
+    /**
+     * 查询用户总记录
+     * @param parammap
+     * @return
+     */
+    Integer queryCount(Map parammap);
 }
