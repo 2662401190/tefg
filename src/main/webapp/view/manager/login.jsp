@@ -90,7 +90,7 @@
                 username: username.val(),
                 password: password.val()
             },
-            url:"${APP_PATH}/login/doLogin",
+            url:"${APP_PATH}/login/doLogin.do",
             beforeSend:function () {
                 loadingIndex = layer.msg('处理中', {icon: 16});
             },
@@ -99,7 +99,7 @@
                 if(result.success){
                     window.location.href="${APP_PATH}/view/manager/main.jsp"
                 }else{
-                    layer.msg("用户名或者密码不正确！", {time:1000, icon:5, shift:6});
+                    layer.msg(result.message, {time:1000, icon:5, shift:6});
                 }
             },
             error:function () {

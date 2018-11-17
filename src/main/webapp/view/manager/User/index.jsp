@@ -82,9 +82,9 @@
                                 <th width="30">#</th>
                                 <th width="30"><input type="checkbox" id="check_all"></th>
                                 <th>账号</th>
-                                <th>名称</th>
                                 <th>邮箱地址</th>
-                                <th width="100">操作</th>
+                                <th>电话号码</th>
+                                <th width="150">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -97,9 +97,7 @@
                                     <%--<ul class="pagination">--%>
 
                                     <%--</ul>--%>
-
                                         <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
-
                                 </td>
                             </tr>
 
@@ -130,7 +128,81 @@
                 }
             }
         });
+        showMenu();
+        queryUserPage(0);
     });
+
+
+        var jsonobj={
+            "pageno":1,
+            "pagesize":10
+        }
+        var loadingIndex;
+        function queryUserPage(pageIndex) {
+            jsonobj.pageno=pageIndex+1;
+            $.ajax({
+                type:"POST",
+                data:jsonobj,
+                url:"${APP_PATH}/user/index.do",
+                beforeSend:function () {
+                    loadingIndex=layer.load(2,{time:10*1000});
+                    return true;
+                },
+                success:function (result) {
+                    layer.close(loadingIndex);
+                    if(result.success){
+                        var page=result.page;
+                        var datas=page.datas;
+
+                        //定义数据表
+                        var content="";
+                        $.each(datas,function (i,user) {
+                           content+='<tr>';
+                           content+='<td>'+(i+1)+'</td>';
+                           content+='<td><input type="checkbox" id="'+user.id+'" name="'+user.name+'" class="check_item"></td>';
+                           content+='<td>'+user.username+'</td>';
+                           content+='<td>'+user.email+'</td>';
+                           content+='<td>'+user.phone+'</td>';
+                           content+='<td>';
+                           content+=' <button type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-usd"></i></button>';
+                           content+=' <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-shopping-cart"></i></button>';
+                           content+=' <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-pencil"></i></i></button>';
+                           content+=' <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></button>';
+                           content+='</td>';
+                           content+='</tr>';
+                        });
+                        //表数据
+                        $("tbody").html(content);
+
+                        //分页数据
+                        $("#Pagination").pagination(page.totalsize, {
+                            num_edge_entries: 2, //边缘页数
+                            num_display_entries: 4, //主体页数
+                            callback: queryUserPage,
+                            items_per_page:10, //每页显示1项,
+                            current_page: (page.pageno - 1),
+                            prev_text: "上一页",
+                            next_text: "下一页"
+                        });
+                    }else{
+                        layer.msg(result.message, {time:1000, icon:5, shift:6});
+                    }
+                },
+                error:function () {
+                    layer.msg("加载数据失败", {time:1000, icon:5, shift:6});
+                }
+            })
+        }
+
+
+
+        //点击查询
+        $("#queryBtn").click(function () {
+            var queryText=$("#queryText").val();
+            jsonobj.queryTest=queryText;
+            queryUserPage(0);
+        })
+
 </script>
 
 <script src="${APP_PATH}/script/menu.js"></script>
