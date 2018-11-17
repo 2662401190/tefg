@@ -165,11 +165,11 @@
   </select>
 
   <!--登录-->
-  <select id="selectLogin" resultMap="BaseResultMap">
+  <select id="queryUserLogin" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from tefg_user
-    where  username=#{name}  and  password=#{pwd}
+    where  username=#{username}  and  password=#{password}
   </select>
 
   <!--获取问题-->
@@ -208,6 +208,21 @@
     count (1)
     from tefg_user
     where  email=#{email} and  id!=#{id}
+  </select>
+
+  <select id="queryPageList" resultMap="BaseResultMap">
+      select * from tefg_user
+      <where>
+        <if test="queryTest!=null">username like concat("%",#{queryTest},"%")</if>
+      </where>
+    limit #{startIndex},#{pagesize}
+  </select>
+
+  <select id="queryCount" resultType="int">
+    select count(*) from tefg_user
+    <where>
+      <if test="queryTest!=null">username like concat("%",#{queryTest},"%")</if>
+    </where>
   </select>
 
 </mapper>

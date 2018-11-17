@@ -16,6 +16,24 @@ public class Page {
     public Integer totalsize;//总行数
     public Integer totalno;//总页数
 
+    public Page(Integer pageno, Integer pagesize) {
+        if(pageno<=0){
+            this.pageno = 1;
+        }else{
+            this.pageno = pageno;
+        }
+
+        if(pagesize<=0){
+            this.pagesize = 10;
+        }else{
+            this.pagesize = pagesize;
+        }
+
+
+
+
+    }
+
     public Integer getPageno() {
         return pageno;
     }
@@ -46,6 +64,7 @@ public class Page {
 
     public void setTotalsize(Integer totalsize) {
         this.totalsize = totalsize;
+        this.totalno=(totalsize%pagesize)==0?(totalsize/pagesize):(totalsize/pagesize+1);
     }
 
     public Integer getTotalno() {
@@ -54,5 +73,10 @@ public class Page {
 
     public void setTotalno(Integer totalno) {
         this.totalno = totalno;
+    }
+
+
+    public Integer getstartIndex(){
+        return (this.pageno-1)*pagesize;
     }
 }
