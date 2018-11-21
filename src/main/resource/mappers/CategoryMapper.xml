@@ -126,4 +126,14 @@
     where parent_id=#{parent_id}
 
   </select>
+
+  <select id="selectCategoryId" resultMap="BaseResultMap" parameterType="int">
+    select
+    <include refid="Base_Column_List"/>
+    from tefg_category
+    where parent_id=(select id from tefg_category where id=#{categoryId} )
+  </select>
+
+
+
 </mapper>

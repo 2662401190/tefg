@@ -24,4 +24,12 @@ public interface CategoryMapper {
      * @return
      */
     List<Category> selectCategoryChildrenByParenId(Integer parent_id);
+
+
+    /**
+     * 根据父节点查询子节点
+     * @param categoryId
+     * @return
+     */
+    List<Category> selectCategoryId(Integer categoryId);
 }

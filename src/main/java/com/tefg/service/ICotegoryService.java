@@ -33,6 +33,9 @@ public interface ICotegoryService  {
      */
     ServerResponse<List<Category>> getCategoryParallelCategory(Integer categoryId);
 
+
+    ServerResponse<List<Category>> getCategoryId(Integer categoryId);
+
     /**
      * 查询当前节点id及孩子节点信息id
      * @param categoryId
