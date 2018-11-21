@@ -48,5 +48,5 @@ public interface ICotegoryService  {
      * @param categoryId
      * @return
      */
-    List<Category> selectCategoryId(Integer categoryId);
+    ServerResponse<List<Category>> getCategoryId(Integer categoryId);
 }
