@@ -139,4 +139,13 @@
   select id as c_id, c.*
     from tefg_category c
   </select>
+  
+    <!--服务器-->
+  <select id="selectCategoryId" resultMap="resultMap" parameterType="int">
+    select
+    id as c_id, c.*
+    from tefg_category C
+    where parent_id=(select id from tefg_category where id=#{categoryId} )
+  </select>
+  
 </mapper>
