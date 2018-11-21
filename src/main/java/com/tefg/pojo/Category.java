@@ -1,6 +1,8 @@
 package com.tefg.pojo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Category {
@@ -18,7 +20,38 @@ public class Category {
 
     private Date updateTime;
 
-    public Category(Integer id, Integer parentId, String name, Boolean status, Integer sortOrder, Date createTime, Date updateTime) {
+    private String icon;
+
+    private String img;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    //用于接收商品子节点
+    private List<Category> children = new ArrayList<Category>();
+
+    public List<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Category> children) {
+        this.children = children;
+    }
+
+    public Category(Integer id, Integer parentId, String name, Boolean status, Integer sortOrder, Date createTime, Date updateTime, String icon, List<Category> children) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
@@ -26,6 +59,8 @@ public class Category {
         this.sortOrder = sortOrder;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.icon = icon;
+        this.children = children;
     }
 
     public Category() {
