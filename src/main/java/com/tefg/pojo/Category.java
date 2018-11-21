@@ -51,7 +51,7 @@ public class Category {
         this.children = children;
     }
 
-    public Category(Integer id, Integer parentId, String name, Boolean status, Integer sortOrder, Date createTime, Date updateTime, String icon, List<Category> children) {
+    public Category(Integer id, Integer parentId, String name, Boolean status, Integer sortOrder, Date createTime, Date updateTime, String icon, String img, List<Category> children) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
@@ -60,6 +60,7 @@ public class Category {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.icon = icon;
+        this.img = img;
         this.children = children;
     }
 

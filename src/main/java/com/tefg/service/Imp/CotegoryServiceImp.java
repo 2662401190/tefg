@@ -97,12 +97,8 @@ public class CotegoryServiceImp implements ICotegoryService {
         return ServerResponse.createBySuccess(categories);
     }
 
-      //查询全部分类
-    @Override
-    public List<Category> queryAllCategory() {
-        return categoryMapper.queryAllCategory();
-    }
-    
+
+
     /**
        * 服务器中加的
      * 查询子节点
@@ -117,7 +113,7 @@ public class CotegoryServiceImp implements ICotegoryService {
         }
         return ServerResponse.createBySuccess(categories);
     }
-    
+
 
     /**
      * 查询当前节点id及孩子节点信息id
@@ -138,7 +134,7 @@ public class CotegoryServiceImp implements ICotegoryService {
         return  ServerResponse.createBySuccess(categoryList);
     }
 
-  
+
 
     /**
      * 递归算法，算出子节点
