@@ -98,26 +98,6 @@ public class CotegoryServiceImp implements ICotegoryService {
     }
 
 
-
-    /**
-     * 查询子节点
-     * @param categoryId
-     * @return
-     */
-    @Override
-    public ServerResponse<List<Category>> getCategoryId(Integer categoryId){
-
-        List<Category> categories = categoryMapper.selectCategoryId(categoryId);
-        if (CollectionUtils.isEmpty(categories)){
-            logger.info("未找到当前分类的子分类");
-        }
-        return ServerResponse.createBySuccess(categories);
-    }
-
-
-
-
-
     /**
      * 查询当前节点id及孩子节点信息id
      * @param categoryId
@@ -137,8 +117,11 @@ public class CotegoryServiceImp implements ICotegoryService {
         return  ServerResponse.createBySuccess(categoryList);
     }
 
-
-
+    //查询全部分类
+    @Override
+    public List<Category> queryAllCategory() {
+        return categoryMapper.queryAllCategory();
+    }
 
     /**
      * 递归算法，算出子节点

@@ -19,10 +19,10 @@
         </ul>
     </li>
     <li class="list-group-item tree-closed">
-        <span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge" style="float:right">3</span></span>
+        <span><i class="glyphicon glyphicon-ok"></i> 商品管理 <span class="badge" style="float:right">3</span></span>
         <ul style="margin-top:10px;display:none;">
             <li style="height:30px;">
-                <a href="auth_cert.html"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a>
+                <a href="${APP_PATH}/view/manager/product/category.jsp"><i class="glyphicon glyphicon-check"></i> 商品分类</a>
             </li>
             <li style="height:30px;">
                 <a href="auth_adv.html"><i class="glyphicon glyphicon-check"></i> 广告审核</a>

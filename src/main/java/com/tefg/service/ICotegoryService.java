@@ -42,4 +42,6 @@ public interface ICotegoryService  {
      * @return
      */
     ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
+
+    List<Category> queryAllCategory();
 }
