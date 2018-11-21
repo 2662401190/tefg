@@ -122,7 +122,9 @@ public class CotegoryServiceImp implements ICotegoryService {
         return  ServerResponse.createBySuccess(categoryList);
     }
 
-    //查询全部分类
+    /**
+     * 查询全部分类
+     */
     @Override
     public List<Category> queryAllCategory() {
         return categoryMapper.queryAllCategory();
