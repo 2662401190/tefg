@@ -25,6 +25,7 @@ public interface CategoryMapper {
      */
     List<Category> selectCategoryChildrenByParenId(Integer parent_id);
 
+<<<<<<< Updated upstream
 
     /**
      * 根据父节点查询子节点
@@ -32,4 +33,7 @@ public interface CategoryMapper {
      * @return
      */
     List<Category> selectCategoryId(Integer categoryId);
+=======
+    List<Category> queryAllCategory();
+>>>>>>> Stashed changes
 }
