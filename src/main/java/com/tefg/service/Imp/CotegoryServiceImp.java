@@ -97,6 +97,11 @@ public class CotegoryServiceImp implements ICotegoryService {
         return ServerResponse.createBySuccess(categories);
     }
 
+    @Override
+    public ServerResponse<List<Category>> getCategoryId(Integer categoryId) {
+        return null;
+    }
+
 
     /**
      * 查询当前节点id及孩子节点信息id
