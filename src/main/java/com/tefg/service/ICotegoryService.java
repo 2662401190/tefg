@@ -41,4 +41,12 @@ public interface ICotegoryService  {
     ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
 
     List<Category> queryAllCategory();
+    
+    /**
+    *服务器
+     * 根据父节点查询子节点
+     * @param categoryId
+     * @return
+     */
+    List<Category> selectCategoryId(Integer categoryId);
 }
