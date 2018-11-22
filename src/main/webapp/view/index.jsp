@@ -134,9 +134,7 @@
        <!--这里显示二级的导航图
        -->
        <div id="showDiv" divindex="-1" onmouseover="showDivOver(this)" onmouseleave="showDivLeave(this)" style="position: absolute;left:232px;z-index: 555;width: 500px;height: 460px;background-color: white">
-            <ul id="sp">
 
-            </ul>
        </div>
    </div>
     <div id="lbt" style="z-index: 10" >
@@ -472,14 +470,12 @@
 <script>
 
     $("#showDiv").hide();
-
     //加载数据
     $.ajax({
         url:"${path}/category/get_category_parentId.do",
         type:"get",
         success:function (result) {
             console.log(result);
-
 
             $.each(result.data,function (index,item) {
                 // todo 跳转
@@ -497,27 +493,23 @@
             data:"categoryId="+categoryId,
             success: function (result) {
                 console.log(result);
-                $("#sp li").remove();
+                $("#showDiv ul").remove();
+
                 $.each(result.data,function (index,item) {
-
                     // todo  跳转
-                    $("#sp").append($("<li>").append("<a href=''>"+item.name+"</a>"));
+                    $("#showDiv").append($("<ul>").append($("<li>").append("<img src='"+item.img+"'><a href=''>"+item.name+"</a>")));
+
                 })
-
-                
-
             }
         });
     }
     function liover(data) {
-
 
         $("#showDiv").attr("divindex",$(data).attr("indexs"));
         $(data).css("background-color","#FF5A0B");
         $("#showDiv").css("display","block");
         var categoryId=$(data).attr("categoryid");
         getfl(categoryId);
-
     }
 
     function showDivLeave(data) {
