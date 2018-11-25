@@ -201,7 +201,6 @@
     </where>
   </select>
 
-
   <select id="selectByNameAndCategoryIds" resultMap="BaseResultMap" parameterType="map">
     select
     <include refid="Base_Column_List"/>
@@ -218,5 +217,49 @@
     </if>
 
   </select>
+
+
+  <!--联合查询-->
+  <select id="productSearch" resultMap="BaseResultMap">
+    select
+    p.*
+    from tefg_product p inner join  tefg_category c
+    where
+    p.category_id=c.id
+    and c.parent_id=(select id from tefg_category  where id=#{categoryId})
+  </select>
+
+  <!--二级菜单查询-->
+  <select id="productSearchTwo" resultMap="BaseResultMap">
+    select
+      p.*
+      from tefg_product p inner join  tefg_category c
+    where
+    p.category_id=c.id
+    and c.id=#{categoryId}
+  </select>
+
+
+  <!--查询最后5条数据-->
+  <select id="" resultMap="BaseResultMap" >
+      select
+    <include refid="Base_Column_List"/>
+    from tefg_product
+    order  by  id desc
+    limit 5
+  </select>
+
+
+    <!-- 查询销量最火的电子产品  todo 待定-->
+    <select id="electronicsTopFive" resultMap="BaseResultMap" >
+select p.*
+ from tefg_product p
+ INNER JOIN tefg_category c
+  where p.category_id=c.id  and c.id=#{categoryId} order by p.stock desc limit 5
+    </select>
+
+
+
+
 
 </mapper>
