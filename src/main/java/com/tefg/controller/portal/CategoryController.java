@@ -1,12 +1,15 @@
 package com.tefg.controller.portal;
 
 import com.tefg.common.ServerResponse;
+import com.tefg.pojo.Category;
 import com.tefg.service.ICotegoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @author 贺威
@@ -43,6 +46,17 @@ public class CategoryController {
     public ServerResponse getCategory(@RequestParam(value = "categoryId") Integer categoryId){
         return iCotegoryService.getCategoryId(categoryId);
     }
+
+
+
+    @RequestMapping("category_desc.do")
+    @ResponseBody
+    public List<Category> categoryDesc(){
+
+        return  iCotegoryService.categoryDesc();
+    }
+
+
 
 
 
