@@ -1,6 +1,7 @@
 package com.tefg.dao;
 
 import com.tefg.pojo.Category;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -26,11 +27,18 @@ public interface CategoryMapper {
     List<Category> selectCategoryChildrenByParenId(Integer parent_id);
 
 
+
     /**
      * 根据父节点查询子节点
      * @param categoryId
      * @return
      */
     List<Category> selectCategoryId(Integer categoryId);
+
+    List<Category> queryAllCategory();
+
+
+    @Select("select * from tefg_category order by id desc limit 9")
+    List<Category> categoryDesc();
 
 }
