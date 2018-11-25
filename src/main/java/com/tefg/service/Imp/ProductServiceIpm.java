@@ -299,7 +299,102 @@ public class ProductServiceIpm implements IProductService {
     }
 
 
+    /**
+     * 搜索
+     * @param categoryId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo productSearch(Integer categoryId,int pageNum,int pageSize){
 
+        PageHelper.startPage(pageNum, pageSize);
+        List<Product> products = productMapper.productSearch(categoryId);
+        List<ProductListVo> productListVos=new ArrayList<>();
+        for (Product product : products) {
+            ProductListVo productListVo = assembleProductListVo(product);
+            productListVos.add(productListVo);
+        }
+        PageInfo info = new PageInfo(products,5);
+        info.setList(productListVos);
+        return info;
+    }
+
+
+
+
+    /**
+     * 搜索二级菜单
+     * @param categoryId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo productSearchWithTwo(Integer categoryId,int pageNum,int pageSize){
+        PageHelper.startPage(pageNum, pageSize);
+        List<Product> products = productMapper.productSearchTwo(categoryId);
+        List<ProductListVo> productListVos=new ArrayList<>();
+        for (Product product : products) {
+            ProductListVo productListVo = assembleProductListVo(product);
+            productListVos.add(productListVo);
+        }
+        PageInfo info = new PageInfo(products,5);
+        info.setList(productListVos);
+        return info;
+    }
+
+    /**
+     * 新品n
+     * @return
+     */
+    @Override
+    public  List<ProductListVo> newThreeProduct(){
+
+        List<Product> productList=productMapper.newThreeProduct();
+        List<ProductListVo> productListVoList=Lists.newArrayList();
+        for (Product product : productList) {
+            ProductListVo productListVo = assembleProductListVo(product);
+            productListVoList.add(productListVo);
+        }
+        return  productListVoList;
+    }
+
+
+    /**
+     * 给钱的十件商品
+     * @return
+     */
+    @Override
+    public ServerResponse<List<ProductListVo>> moneyTen(){
+
+        List<Product> productList=productMapper.moneyTen();
+        List<ProductListVo> productListVoList=Lists.newArrayList();
+        for (Product product : productList) {
+            ProductListVo productListVo = assembleProductListVo(product);
+            productListVoList.add(productListVo);
+        }
+
+        return ServerResponse.createBySuccess(productListVoList);
+    }
+
+    /**
+     * 电子产品
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public ServerResponse<List<ProductListVo>> electronicsTopFive(Integer categoryId){
+
+        List<Product> productList=productMapper.electronicsTopFive(categoryId);
+        List<ProductListVo> productListVoList=Lists.newArrayList();
+        for (Product product : productList) {
+            ProductListVo productListVo = assembleProductListVo(product);
+            productListVoList.add(productListVo);
+        }
+        return ServerResponse.createBySuccess(productListVoList);
+    }
 
 
 

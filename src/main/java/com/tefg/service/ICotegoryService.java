@@ -43,5 +43,9 @@ public interface ICotegoryService  {
      */
     ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
 
-    
+
+    List < Category >  queryAllCategory();
+
+    List <Category> categoryDesc();
+
 }

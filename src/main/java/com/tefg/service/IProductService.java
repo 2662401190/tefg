@@ -3,7 +3,10 @@ package com.tefg.service;
 import com.github.pagehelper.PageInfo;
 import com.tefg.common.ServerResponse;
 import com.tefg.pojo.Product;
+import com.tefg.vo.ProductListVo;
 import com.tefg.vo.ProuctDetailVO;
+
+import java.util.List;
 
 /**
  * @author 贺威
@@ -73,4 +76,47 @@ public interface IProductService {
      * @return
      */
     ServerResponse<PageInfo> getProdictByKeywordCategory(String keyword, Integer categoryId, int pageNum, int pageSize, String orderBy);
+
+
+    /**
+     * 一级
+     * @param categoryId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageInfo productSearch(Integer categoryId,int pageNum,int pageSize);
+
+
+    /**
+     * 二级
+     * @param categoryId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageInfo productSearchWithTwo(Integer categoryId,int pageNum,int pageSize);
+
+
+    /**
+     * 新出的三件商品
+     * @return
+     */
+    List<ProductListVo> newThreeProduct();
+
+
+    /**
+     * 给钱的十件商品
+     * @return
+     */
+    ServerResponse<List<ProductListVo>> moneyTen();
+
+
+    /**
+     * 电子产品
+     * @param categoryId
+     * @return
+     */
+    ServerResponse<List<ProductListVo>> electronicsTopFive(Integer categoryId);
+
 }

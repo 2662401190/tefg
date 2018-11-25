@@ -115,6 +115,20 @@ public class CotegoryServiceImp implements ICotegoryService {
     }
 
 
+    //查询全部分类
+    @Override
+    public List<Category> queryAllCategory() {
+        return categoryMapper.queryAllCategory();
+    }
+
+    @Override
+    public List<Category> categoryDesc(){
+
+        return  categoryMapper.categoryDesc();
+    }
+
+
+
     /**
      * 查询当前节点id及孩子节点信息id
      * @param categoryId
