@@ -110,8 +110,6 @@ public interface IProductService {
      * @return
      */
     ServerResponse<List<ProductListVo>> moneyTen();
-
-
     /**
      * 电子产品
      * @param categoryId
