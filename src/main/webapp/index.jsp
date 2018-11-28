@@ -8,6 +8,13 @@
         <input type="password" name="password"><br>
         <input type="submit" value="sdf">
     </form>
+
+    前台登录
+    <form method="post" action="/user/login.do">
+        <input type="text" name="userName"><br>
+        <input type="password" name="passWord"><br>
+        <input type="submit" value="登录">
+    </form>
     mvc 上传文件
     <form method="post" action="/manage/product/product_upload.do" enctype="multipart/form-data" >
         <input  type="file" name="upload_file"/>

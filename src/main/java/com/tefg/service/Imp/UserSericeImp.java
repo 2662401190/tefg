@@ -11,7 +11,10 @@ import com.tefg.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -35,7 +38,7 @@ public class UserSericeImp implements IUserService {
     @Override
     public ServerResponse<User> login(String userName, String passWord) {
         // 判断用户存不存在
-
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         int resultConut=userMapper.checkUsername(userName);
         if(resultConut==0){
             return  ServerResponse.createByErrorMessage("用户名不存在");
@@ -47,6 +50,7 @@ public class UserSericeImp implements IUserService {
         if (user==null){
             return  ServerResponse.createByErrorMessage("密码错误");
         }
+        request.getSession().setAttribute("user",user);
         user.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess("登录成功", user);
     }

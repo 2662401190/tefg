@@ -34,7 +34,7 @@ public interface UserMapper {
     /**
      * 登录
      */
-    User selectLogin(@Param("name") String userName, @Param("pwd") String passWord);
+    User selectLogin(@Param("userName") String userName, @Param("passWord") String passWord);
 
 
     /**

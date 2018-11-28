@@ -163,6 +163,13 @@
   <select id="checkEmail" resultType="int" parameterType="string">
        select count(*) from  tefg_user where email = #{email}
   </select>
+  <!--登录-->
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from tefg_user
+    where  username=#{userName}  and  password=#{passWord}
+  </select>
 
   <!--登录-->
   <select id="queryUserLogin" resultMap="BaseResultMap">
