@@ -7,15 +7,20 @@ import com.google.common.collect.Maps;
 import com.tefg.common.Const;
 import com.tefg.common.ResponseCode;
 import com.tefg.common.ServerResponse;
+import com.tefg.dao.ShippingMapper;
+import com.tefg.pojo.Shipping;
 import com.tefg.pojo.User;
 import com.tefg.service.IOrderService;
+import com.tefg.vo.Ordervo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Iterator;
@@ -35,21 +40,31 @@ public class OrderController {
 
     @Autowired
     private IOrderService iOrderService;
+    @Autowired
+    private ShippingMapper shippingMapper;
 
     /**
      * 创建订单
      * @param session
-     * @param shippingId
+     * @param shippingId    发货地址的id
      * @return
      */
     @RequestMapping("create.do")
-    @ResponseBody
-    public ServerResponse create(HttpSession session, Integer shippingId) {
+    public String create(HttpSession session,@RequestParam(value = "shippingId") Integer shippingId,Model model) {
+        System.out.println("进入");
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+            return "user-login";
         }
-        return iOrderService.createOrder(user.getId(),shippingId);
+        Shipping shipping = shippingMapper.selectByShippingIdUserId(user.getId(),shippingId);
+        if (shipping == null) {
+            ServerResponse message = ServerResponse.createByErrorMessage("请填写收货地址");
+            model.addAttribute("message",message);
+            return "index";
+        }
+        ServerResponse orderDetail = iOrderService.createOrder(user.getId(), shippingId);
+        model.addAttribute("orderDetail",orderDetail);
+        return "/porde/create";
     }
 
     /**
@@ -92,13 +107,14 @@ public class OrderController {
      */
     @RequestMapping("detail.do")
     @ResponseBody
-    public ServerResponse detail(HttpSession session,Long orderNo) {
+    public ServerResponse detail(HttpSession session,@RequestParam(value ="orderNo" ) Long orderNo) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iOrderService.getOrderDetail(user.getId(),orderNo);
+        return iOrderService.getOrderDetail(user.getId(), orderNo);
     }
+
 
 
     /**
@@ -109,14 +125,15 @@ public class OrderController {
      */
     @RequestMapping("list.do")
     @ResponseBody
-    public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1")int pageNUm, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize) {
-        User user = (User) session.getAttribute("user");
+    public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1")int pageNUm, @RequestParam(value = "pageSize",defaultValue = "3") int pageSize) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
         System.out.println(user);
         if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         return iOrderService.getOrderList(user.getId(), pageNUm, pageSize);
     }
+
 
 
     /**
@@ -127,14 +144,16 @@ public class OrderController {
      * @return
      */
     @RequestMapping("pay.do")
-    @ResponseBody
-    public ServerResponse pay(HttpSession session, long orderNo, HttpServletRequest request) {
+    public String pay(HttpSession session,@RequestParam(value = "orderNo") long orderNo, HttpServletRequest request,Model model) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+            return "user-login";
         }
         String path = request.getSession().getServletContext().getRealPath("upload");
-        return iOrderService.pay(orderNo, user.getId(), path);
+
+        ServerResponse pay = iOrderService.pay(orderNo, user.getId(), path);
+        model.addAttribute("pay",pay);
+        return "/porde/pay";
     }
 
     /**
@@ -192,7 +211,7 @@ public class OrderController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        ServerResponse serverResponse = iOrderService.queryOrderPayStatus(user.getId(),orderNo);
+        ServerResponse<Boolean> serverResponse = iOrderService.queryOrderPayStatus(user.getId(),orderNo);
         if(serverResponse.isSuccess()){
             return ServerResponse.createBySuccess(true);
         }

@@ -35,7 +35,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -100,6 +103,7 @@ public class OrderServiceImpl implements IOrderService {
         List<OrderItem> orderItemList = (List<OrderItem>) serverResponse.getData();
         Double payment = this.getOrderTotalPrice(orderItemList);
 
+
         //生成订单
         Order order = this.assembleOrder(userId, shippingId, payment);
         if (order == null) {
@@ -109,6 +113,7 @@ public class OrderServiceImpl implements IOrderService {
         if (CollectionUtils.isEmpty(orderItemList)) {
             return ServerResponse.createByErrorMessage("购物车为空");
         }
+
         //遍历OrderItem
         for (OrderItem orderItem : orderItemList) {
             orderItem.setOrderNo(order.getOrderNo());
@@ -138,7 +143,7 @@ public class OrderServiceImpl implements IOrderService {
         orderVo.setStatus(order.getStatus());
         orderVo.setStatusDesc(Const.OrderStatusEnum.codeOf(order.getStatus()).getValue());
 
-        //发货地址
+        //收货地址
         orderVo.setShippingId(order.getShippingId());
         Shipping shipping = shippingMapper.selectByPrimaryKey(order.getShippingId());
         if (shipping != null) {
@@ -163,6 +168,11 @@ public class OrderServiceImpl implements IOrderService {
         return orderVo;
     }
 
+    /**
+     * 产品信息
+     * @param orderItem
+     * @return
+     */
     private OrderItemVo assembleOrderItemVo(OrderItem orderItem) {
         OrderItemVo orderItemVo = new OrderItemVo();
         orderItemVo.setOrderNo(orderItem.getOrderNo());
@@ -178,7 +188,11 @@ public class OrderServiceImpl implements IOrderService {
     }
 
 
-    //地址
+    /**
+     * 地址信息
+     * @param shipping
+     * @return
+     */
     private ShippingVo assembleShippingVo(Shipping shipping) {
         ShippingVo shippingVo = new ShippingVo();
         shippingVo.setReceiverName(shipping.getReceiverName());
@@ -188,7 +202,7 @@ public class OrderServiceImpl implements IOrderService {
         shippingVo.setReceiverDistrict(shipping.getReceiverDistrict());
         shippingVo.setReceiverMobile(shipping.getReceiverMobile());
         shippingVo.setReceiverZip(shipping.getReceiverZip());
-        shippingVo.setReceiverPhone(shippingVo.getReceiverPhone());
+        shippingVo.setReceiverPhone(shipping.getReceiverPhone());
         return shippingVo;
     }
 
@@ -366,10 +380,12 @@ public class OrderServiceImpl implements IOrderService {
      * @return
      */
     public ServerResponse<Ordervo> getOrderDetail(Integer userId,Long orderNo){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Order order = orderMapper.selectByUserIdAndOrderNo(userId,orderNo);
         if(order != null){
             List<OrderItem> orderItemList = orderItemMapper.getByOrderNoUserId(orderNo,userId);
             Ordervo orderVo = assembleOrderVo(order,orderItemList);
+            request.getSession().setAttribute("orderNo",orderNo);
             return ServerResponse.createBySuccess(orderVo);
         }
         return  ServerResponse.createByErrorMessage("没有找到该订单");

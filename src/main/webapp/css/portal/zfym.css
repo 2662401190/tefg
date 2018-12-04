@@ -1,0 +1,73 @@
+*{
+	margin :0 ;
+	padding:0;
+	text-decoration: none;
+}
+
+.qrdd{width: 100px;margin-left: 80px;margin-top: 20px;}
+.qrddzt{font-size: 25px;}
+#dingdan{border: 1px red solid;width:1185px;margin:70px auto;}
+.peisong{background-color: #F0F0F0;width: 480px;margin-left: 76px;margin-top: 25px;height: 200px;}
+.fangshi{font-weight: bold;text-align: center;}
+.kdys{text-align: center;color: #FF4CC3;}
+.pssj{text-align: center;color: #FF4CC3;}
+.yunfei{text-align: center;color: #6600CC;}
+.shangpin{border: 1px #CCFFFF solid;margin-left: 555px;margin-top: -200px;width: 540px;}
+.songhuo{color: #CC0099;}
+.shangpina{margin: 10px;height: 177px;background-color: #CCFFFF;border: 1px #CCFFFF solid;}
+
+/*.shangpina:HOVER{text-decoration: none;border: 1px red solid;}*/
+.shangpina:HOVER {border: 1px #FF26C9 solid;}
+
+.shangpinsd{text-align: center;}
+.shangjia{font-weight: bold;text-align: center;height: 40px;}
+.ceshi{padding-top: 10px;}
+.tpdx{width: 150px;height: 100px;}
+.shxinxi-tp{width: 180px;}
+.shxinxi-shangping{width: 200px;}
+.spmzys:hover{color: red;}
+.shxinxi-shuliang{width: 100px;}
+.shxinxi-jg{width: 100px;}
+.fenggexian{width: 1000px;margin: 30px auto;}
+.fpxi{font-weight: bold;}
+.ddpg{margin-left: 90px;}
+.dzpg{text-align: center;}
+.gr{text-align: center;width: 80px;}
+.spmx{text-align: left;width: 100px;}
+.xiugai{color: blue;text-align: left;}
+
+.jehezi{margin:70px auto;width: 1185px;}
+.shangpingje{margin-left: 750px;text-align: end;height: 130px;}
+.mckd{width: 200px;color: #FF26C9;}
+.jqkd{width: 200px;}
+.zhif{background-color: #F0F0F0;margin-top: 20px;height: 120px;}
+.fukuanhezi{float:right; }
+
+.yfje{color: #FF26C9;height: 60px;}
+
+.fkje{height: 50px;text-align: center;}
+
+.mckda{width:200px;font-size: 20px;}
+.jqkda{width:200px;font-size: 25px;color: red;}
+
+
+#xyb{text-align: end;}
+.xybb{
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}
+.xybb:HOVER{background-color: red;}
+
+
+
+
+
+
+
+

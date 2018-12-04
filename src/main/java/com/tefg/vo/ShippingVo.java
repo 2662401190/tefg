@@ -6,14 +6,14 @@ package com.tefg.vo;
  */
 public class ShippingVo {
 
-    private String receiverName;
-    private String receiverPhone;
-    private String receiverMobile;
-    private String receiverProvince;
-    private String receiverCity;
-    private String receiverDistrict;
-    private String receiverAddress;
-    private String receiverZip;
+    private String receiverName;        //收货姓名
+    private String receiverPhone;       //收货固定电话
+    private String receiverMobile;      //收货移动电话
+    private String receiverProvince;    //身份
+    private String receiverCity;        //城市
+    private String receiverDistrict;    //区县
+    private String receiverAddress;     //详细地址
+    private String receiverZip;         //邮编
 
     public String getReceiverName() {
         return receiverName;

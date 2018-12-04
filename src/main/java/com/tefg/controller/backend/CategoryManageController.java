@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  * @create 2018-11-05 8:58
  */
 @Controller
-@RequestMapping("/manage/category/")
+@RequestMapping("/manage/category")
 public class CategoryManageController {
 
     @Autowired

@@ -24,7 +24,7 @@ public class Ordervo {
     private List<OrderItemVo> orderItemVoList;  //订单的明细
     private String imageHost;       //图片地址
     private Integer shippingId;     //收货地址
-    private String receiverName;    //收货人信命
+    private String receiverName;    //收货人姓名
     private ShippingVo shippingVo;
 
     public Long getOrderNo() {

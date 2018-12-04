@@ -138,40 +138,44 @@
             <td class="jqkd">￥0.00</td>
         </tr>
     </table>
+    <div class="zhif">
+        <div class="fukuanhezi">
 
-    <div class="fukuanhezi">
+            <table class="fkje">
+                <tr>
+                    <td class="mckda">应付金额:</td>
+                    <td class="jqkda">￥${orderDetail.data.payment}</td>
+                </tr>
+            </table>
 
-        <table class="fkje">
-            <tr>
-                <td class="mckda">应付金额:</td>
-                <td class="jqkda">￥${orderDetail.data.payment}</td>
-            </tr>
-        </table>
-
-        <table class="yfje">
-            <tr>
-                <td class="shdz">收货地址:</td>
-                <td class="dzxinxi">
-                    ${orderDetail.data.shippingVo.receiverProvince}
-                    ${orderDetail.data.shippingVo.receiverCity}
-                    ${orderDetail.data.shippingVo.receiverDistrict}
-                    ${orderDetail.data.shippingVo.receiverAddress}
-                </td>
-            </tr>
-            <tr>
-                <td>收货人:</td>
-                <td>
-                    ${orderDetail.data.shippingVo.receiverName}
-                    ${orderDetail.data.shippingVo.receiverMobile}
-                </td>
-            </tr>
-        </table>
+            <table class="yfje">
+                <tr>
+                    <td class="shdz">收货地址:</td>
+                    <td class="dzxinxi">
+                        ${orderDetail.data.shippingVo.receiverProvince}
+                        ${orderDetail.data.shippingVo.receiverCity}
+                        ${orderDetail.data.shippingVo.receiverDistrict}
+                        ${orderDetail.data.shippingVo.receiverAddress}
+                    </td>
+                </tr>
+                <tr>
+                    <td>收货人:</td>
+                    <td>
+                        ${orderDetail.data.shippingVo.receiverName}tikgvvvvvvvvuv
+                        ${orderDetail.data.shippingVo.receiverMobile}
+                    </td>
+                </tr>
+            </table>
 
 
+        </div>
     </div>
-
     <div id="xyb">
-        <a href="javascript:void(0)" class="xybb">支付订单</a>
+        <form action="/order/pay.do" method="post">
+            <input type="text" name="orderNo" value="${orderDetail.data.orderNo}" style="display: none!important;">
+            <input type="submit" value="支付订单" class="xybb">
+        </form>
+
 
     </div>
 
